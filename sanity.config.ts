@@ -4,6 +4,7 @@
  * This configuration is used to for the Sanity Studio that's mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
+import React from 'react'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
@@ -23,14 +24,14 @@ export default defineConfig({
     projectName: 'ブログ管理画面',
   },
   // デフォルトのドキュメントタイプを設定
-  defaultDocumentNode: (S) =>
+  defaultDocumentNode: (S: any) =>
     S.document().views([
       S.view.form(),
-      S.view.component(() => (
-        <div style={{ padding: '1rem' }}>
-          <p>このドキュメントは自動保存されます。変更はすぐに反映されます。</p>
-        </div>
-      )).title('ヘルプ'),
+      S.view.component(() => 
+        React.createElement('div', { style: { padding: '1rem' } },
+          React.createElement('p', null, 'このドキュメントは自動保存されます。変更はすぐに反映されます。')
+        )
+      ).title('ヘルプ'),
     ]),
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
